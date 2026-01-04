@@ -45,10 +45,20 @@ update: ## Update all dependencies to latest versions
 
 ##@ Running the Application
 
-run: ## Run the Streamlit chatbot application
+run-cli: ## Run the terminal CLI chatbot (recommended)
+	@echo "$(GREEN)Starting CLI chatbot...$(NC)"
+	@echo "$(YELLOW)Make sure Ollama is running in another terminal!$(NC)"
+	uv run python main.py --mode cli
+
+run-web: ## Run the Streamlit web chatbot
 	@echo "$(GREEN)Starting Streamlit chatbot...$(NC)"
 	@echo "$(YELLOW)Make sure Ollama is running in another terminal!$(NC)"
-	uv run streamlit run main.py
+	uv run python main.py --mode web
+
+run: ## Run the chatbot (default: CLI mode)
+	@echo "$(GREEN)Starting chatbot in CLI mode...$(NC)"
+	@echo "$(YELLOW)Make sure Ollama is running in another terminal!$(NC)"
+	uv run python main.py
 
 ##@ Ollama Management
 
@@ -215,8 +225,11 @@ quickstart: ## Quick start guide
 	@echo "$(YELLOW)2. Terminal 1 - Start Ollama:$(NC)"
 	@echo "   make ollama-serve"
 	@echo ""
-	@echo "$(YELLOW)3. Terminal 2 - Run Chatbot:$(NC)"
-	@echo "   make run"
+	@echo "$(YELLOW)3. Terminal 2 - Run CLI Chatbot:$(NC)"
+	@echo "   make run-cli"
+	@echo ""
+	@echo "$(YELLOW)   Or run Web Chatbot:$(NC)"
+	@echo "   make run-web"
 	@echo ""
 	@echo "$(YELLOW)4. Run Tests:$(NC)"
 	@echo "   make test"
